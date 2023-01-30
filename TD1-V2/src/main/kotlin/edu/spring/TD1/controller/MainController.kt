@@ -1,5 +1,6 @@
-package edu.spring.TD1
+package edu.spring.TD1.controller
 
+import edu.spring.TD1.models.Categorie
 import edu.spring.TD1.models.Item
 import edu.spring.TD1.services.UIMessage
 import org.springframework.stereotype.Controller
@@ -8,15 +9,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.view.RedirectView
 
 @Controller
-@SessionAttributes("items")
+@SessionAttributes("categories")
 class MainController {
 
-    @get:ModelAttribute("items")
-    val items: Set<Item>
+    @get:ModelAttribute("categories")
+    val categories: Set<Categorie>
         get() {
-            val items = HashSet<Item>()
-            items.add(Item("Foo"));
-            return items
+            val categories = HashSet<Categorie>()
+            categories.add(Categorie("Amis"))
+            categories.add(Categorie("Famille"))
+            categories.add(Categorie("Professionnel"))
+            return categories
         }
 
     private fun getItemByName(items : MutableSet<Item>, nom : String) : Item? = items.find { it.nom == nom }
@@ -40,14 +43,14 @@ class MainController {
     }
 
     @PostMapping("/addNew")
-    fun addNew(@SessionAttribute("items") items: MutableSet<Item?>, @ModelAttribute item:Item, attrs: RedirectAttributes): RedirectView {
-        addMessage(items.add(item), attrs,"Ajout","${item.nom} est déjà dans les items","${item.nom} a été ajouté à la liste")
+    fun addNew(@SessionAttribute("items") items: MutableSet<Item?>, @ModelAttribute item:Item, @ModelAttribute categorie: Categorie,attrs: RedirectAttributes): RedirectView {
+        addMessage(categorie.addItem(item), attrs,"Ajout","${item.nom} est déjà dans les items","${item.nom} a été ajouté à la liste")
         return RedirectView("/")
     }
 
     @GetMapping("/inc/{nom}")
     fun inc(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
-        var it = getItemByName(items,nom)
+        val it = getItemByName(items,nom)
         it?.increment()
         addMessage(it != null, attrs,"Mise à jour","$nom n'est pas dans la liste","$nom a été incrémenté")
         return RedirectView("/")
@@ -55,17 +58,18 @@ class MainController {
 
     @GetMapping("/dec/{nom}")
     fun dec(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
-        var it = getItemByName(items,nom)
+        val it = getItemByName(items,nom)
         it?.decrement()
         addMessage(it != null, attrs,"Mise à jour","$nom n'est pas dans la liste","$nom a été décrémenté")
         return RedirectView("/")
     }
     @GetMapping("/delete/{nom}")
-    fun delete(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
-        var it = getItemByName(items,nom)
+    fun delete(@SessionAttribute("categories") items: MutableSet<Item>,@PathVariable("categorie") categorie : String ,@PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
+        items
+        val it = getItemByName(items,nom)
         if(it != null){
             items.remove(it)
-        } 
+        }
         addMessage(it != null, attrs,"Suppression","$nom n'est pas dans la liste","$nom a été supprimé")
         return RedirectView("/")
     }
