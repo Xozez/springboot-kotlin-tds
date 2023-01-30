@@ -75,7 +75,5 @@ class MainController {
         }
         attrs.addFlashAttribute("msg", UIMessage.message("Suppression","$nom n'est pas dans la liste","error","warning circle"))
         return RedirectView("/")
-    }   
-
-
+    }
 }
