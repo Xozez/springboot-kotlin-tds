@@ -19,8 +19,14 @@ class MainController {
             return items
         }
 
-    private fun getItemByName(items : MutableSet<Item>, nom : String) : Item? {
-        return items.find { it.nom == nom }
+    private fun getItemByName(items : MutableSet<Item>, nom : String) : Item? = items.find { it.nom == nom }
+
+    private fun addMessage(response : Boolean, attrs : RedirectAttributes,title : String, error : String, success : String){
+        if(response){
+            attrs.addFlashAttribute("msg",UIMessage.message(title,success))
+        } else {
+            attrs.addFlashAttribute("msg",UIMessage.message(title,error,"error","warning circle"))
+        }
     }
 
     @RequestMapping("/")
@@ -35,46 +41,32 @@ class MainController {
 
     @PostMapping("/addNew")
     fun addNew(@SessionAttribute("items") items: MutableSet<Item?>, @ModelAttribute item:Item, attrs: RedirectAttributes): RedirectView {
-        if(items.add(item)){
-            attrs.addFlashAttribute("msg", UIMessage.message("Ajout","${item.nom} a été ajouté à la liste"))
-        } else {
-            attrs.addFlashAttribute("msg", UIMessage.message("Ajout","${item.nom} est déjà dans les items","error","warning circle"))
-        }
+        addMessage(items.add(item), attrs,"Ajout","${item.nom} est déjà dans les items","${item.nom} a été ajouté à la liste")
         return RedirectView("/")
     }
 
     @GetMapping("/inc/{nom}")
     fun inc(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
         var it = getItemByName(items,nom)
-        if(it != null){
-            it.increment()
-            attrs.addFlashAttribute("msg", UIMessage.message("Incrémentation","$nom a été incrémenté"))
-        } else {
-            attrs.addFlashAttribute("msg", UIMessage.message("Incrémentation","$nom n'est pas dans la liste","error","warning circle"))
-        }
+        it?.increment()
+        addMessage(it != null, attrs,"Mise à jour","$nom n'est pas dans la liste","$nom a été incrémenté")
         return RedirectView("/")
     }
 
     @GetMapping("/dec/{nom}")
     fun dec(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
         var it = getItemByName(items,nom)
-        if(it != null){
-                it.decrement()
-                attrs.addFlashAttribute("msg", UIMessage.message("Décrémentation","$nom a été décrémenté"))
-        } else {
-            attrs.addFlashAttribute("msg",UIMessage.message("Décrémentation", "$nom n'est pas dans la liste", "error", "warning circle"))
-        }
+        it?.decrement()
+        addMessage(it != null, attrs,"Mise à jour","$nom n'est pas dans la liste","$nom a été décrémenté")
         return RedirectView("/")
     }
     @GetMapping("/delete/{nom}")
     fun delete(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
         var it = getItemByName(items,nom)
         if(it != null){
-                items.remove(it)
-                attrs.addFlashAttribute("msg", UIMessage.message("Suppression","$nom a été supprimé"))
-        } else{
-            attrs.addFlashAttribute("msg", UIMessage.message("Suppression","$nom n'est pas dans la liste","error","warning circle"))
-        }
+            items.remove(it)
+        } 
+        addMessage(it != null, attrs,"Suppression","$nom n'est pas dans la liste","$nom a été supprimé")
         return RedirectView("/")
     }
 }
