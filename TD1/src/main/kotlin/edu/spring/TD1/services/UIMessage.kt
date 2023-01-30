@@ -6,6 +6,6 @@ class UIMessage {
     companion object {
         fun message (title: String, message : String, type : String , icon : String)= Message(title,message,type,icon)
 
-        fun message (title:String,message : String)= Message(title,message,"success","infocircle")
+        fun message (title:String,message : String)= Message(title,message,"success","info circle")
     }
 }

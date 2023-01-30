@@ -15,9 +15,19 @@
         <tr>
             <td> {{nom}} </td>
             <td> {{evaluation}} </td>
+            <td> <a class="ui green button" href="/inc/{{nom}}"> Incrémenter </a> </td>
+            <td> <a class="ui blue button" href="/dec/{{nom}}"> Décrémenter </a> </td>
+            <td> <a class="ui red button" href="/delete/{{nom}}"> Supprimer </a> </td>
         </tr>
         {{/items}}
     </tbody>
 </table>
-<a class="ui red button" href="/new"> Ajouter un item </a>
+<a class="ui green button" href="/new"> Ajouter un item </a>
+<div class="ui top attached tabular menu">
+    <div class="item">Tab</div>
+</div>
+<div class="ui bottom attached tab segment">
+    <p>aaa</p>
+    <p>aa</p>
+</div>
 {{>footer}}

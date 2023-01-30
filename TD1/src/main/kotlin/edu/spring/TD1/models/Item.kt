@@ -11,4 +11,10 @@ class Item(var nom: String?) {
     override fun hashCode(): Int {
         return nom.hashCode()
     }
+    fun increment() {
+        evaluation++
+    }
+    fun decrement() {
+        evaluation--
+    }
 }
