@@ -44,9 +44,11 @@ class MainController {
         for (element in items) {
             if (element.nom == nom) {
                 element.evaluation = element.evaluation + 1
+                attrs.addFlashAttribute("msg", UIMessage.message("Incrémentation","$nom a été incrémenté"))
+                return RedirectView("/")
             }
         }
-        attrs.addFlashAttribute("msg", "$nom a été incrémenté")
+        attrs.addFlashAttribute("msg", UIMessage.message("Incrémentation","$nom n'est pas dans la liste","error","warning circle"))
         return RedirectView("/")
     }
 
@@ -55,9 +57,25 @@ class MainController {
         for (element in items) {
             if (element.nom == nom) {
                 element.evaluation = element.evaluation - 1
+                attrs.addFlashAttribute("msg", UIMessage.message("Décrémentation","$nom a été décrémenté"))
+                return RedirectView("/")
             }
         }
-        attrs.addFlashAttribute("msg", "$nom a été décrémenté")
+        attrs.addFlashAttribute("msg", UIMessage.message("Décrémentation","$nom n'est pas dans la liste","error","warning circle"))
         return RedirectView("/")
     }
+    @GetMapping("/delete/{nom}")
+    fun delete(@SessionAttribute("items") items: MutableSet<Item>, @PathVariable("nom") nom: String, attrs: RedirectAttributes): RedirectView {
+        for (element in items) {
+            if (element.nom == nom) {
+                items.remove(element)
+                attrs.addFlashAttribute("msg", UIMessage.message("Suppression","$nom a été supprimé"))
+                return RedirectView("/")
+            }
+        }
+        attrs.addFlashAttribute("msg", UIMessage.message("Suppression","$nom n'est pas dans la liste","error","warning circle"))
+        return RedirectView("/")
+    }   
+
+
 }
