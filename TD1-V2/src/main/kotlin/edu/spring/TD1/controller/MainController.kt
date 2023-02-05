@@ -38,6 +38,11 @@ class MainController {
         return "index"
     }
 
+    @GetMapping("/newCategorie")
+    fun newCategorieAction(): String {
+        return "newCategorie"
+    }
+
     @GetMapping("/new/{categorie}")
     fun newAction(@PathVariable("categorie") categorie : String): String {
         return "newFormulaire"
@@ -48,6 +53,13 @@ class MainController {
         val it = getCategorieByName(categories,categorie)
         it?.addItem(item)
             ?.let { addMessage(it, attrs,"Ajout","${item.nom} est déjà dans les items","${item.nom} a été ajouté à la liste") }
+        return RedirectView("/")
+    }
+
+    @PostMapping("/addNewCategorie")
+    fun addNewCategorie(@SessionAttribute("categories") categories: MutableSet<Categorie>, @ModelAttribute("libelle") libelle: String,attrs: RedirectAttributes): RedirectView {
+        val it = Categorie(libelle)
+        addMessage(categories.add(it), attrs,"Ajout","${it.libelle} est déjà dans les catégories","${it.libelle} a été ajouté à la liste des categories")
         return RedirectView("/")
     }
 
