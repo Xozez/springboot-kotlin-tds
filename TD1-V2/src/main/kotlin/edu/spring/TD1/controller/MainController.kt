@@ -19,9 +19,6 @@ class MainController {
             categories.add(Categorie("Amis"))
             categories.add(Categorie("Famille"))
             categories.add(Categorie("Professionnel"))
-            categories.elementAt(0).addItem(Item("Jean"))
-            categories.elementAt(0).addItem(Item("AA"))
-            categories.elementAt(0).addItem(Item("Jeanne"))
             return categories
         }
 
@@ -47,7 +44,7 @@ class MainController {
     }
 
     @PostMapping("/addNew")
-    fun addNew(@SessionAttribute("categories") categories: MutableSet<Categorie>, @ModelAttribute item:Item, @ModelAttribute categorie: String,attrs: RedirectAttributes): RedirectView {
+    fun addNew(@SessionAttribute("categories") categories: MutableSet<Categorie>, @ModelAttribute item:Item, @ModelAttribute("categorie") categorie: String,attrs: RedirectAttributes): RedirectView {
         val it = getCategorieByName(categories,categorie)
         it?.addItem(item)
             ?.let { addMessage(it, attrs,"Ajout","${item.nom} est déjà dans les items","${item.nom} a été ajouté à la liste") }
@@ -74,6 +71,8 @@ class MainController {
         val it = getCategorieByName(categories,categorie)
         if(getItemByName(it?.getItems(),nom) != null){
             it?.removeItem(getItemByName(it.getItems(),nom)!!)
+            addMessage(true, attrs,"Suppression","$nom n'est pas dans la liste","$nom a été supprimé")
+            return RedirectView("/")
         }
         addMessage(it != null && getItemByName(it?.getItems(),nom) != null, attrs,"Suppression","$nom n'est pas dans la liste","$nom a été supprimé")
         return RedirectView("/")
