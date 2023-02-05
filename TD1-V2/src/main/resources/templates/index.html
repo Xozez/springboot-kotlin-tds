@@ -1,33 +1,19 @@
 {{>header}}
-<h1> Gestion d'items </h1>
+<h1> Gestion de catégories d'items </h1>
 {{#msg}}
     {{>include/message}}
 {{/msg}}
-<table>
-    <thead>
-        <tr>
-            <th> Nom </th>
-            <th> Evaluation </th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#items}}
-        <tr>
-            <td> {{nom}} </td>
-            <td> {{evaluation}} </td>
-            <td> <a class="ui green button" href="/inc/{{nom}}"> Incrémenter </a> </td>
-            <td> <a class="ui blue button" href="/dec/{{nom}}"> Décrémenter </a> </td>
-            <td> <a class="ui red button" href="/delete/{{nom}}"> Supprimer </a> </td>
-        </tr>
-        {{/items}}
-    </tbody>
-</table>
-<a class="ui green button" href="/new"> Ajouter un item </a>
+
+{{#categories}}
 <div class="ui top attached tabular menu">
-    <div class="item">Tab</div>
+    <div class="item">{{libelle}}</div>
 </div>
-<div class="ui bottom attached tab segment">
-    <p>aaa</p>
-    <p>aa</p>
+<div class="ui bottom attached active tab segment">
+    {{#items}}
+    <p> {{nom}} {{evaluation}}  <a class="ui green button" href="/inc/{{nom}}"> Incrémenter </a> <a class="ui blue button" href="/dec/{{nom}}"> Décrémenter </a>
+        <a class="ui red button" href="/delete/{{nom}}"> Supprimer </a> </p>
+    {{/items}}
 </div>
+<a class="ui green button" href="/new"> Ajouter un item pour la catégorie {{libelle}}</a>
+{{/categories}}
 {{>footer}}
