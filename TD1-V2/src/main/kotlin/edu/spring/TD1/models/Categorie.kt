@@ -9,7 +9,7 @@ class Categorie(var libelle : String?) {
     fun removeItem(item : Item) : Boolean{
         return if (items.contains(item)) items.remove(item) else false
     }
-    fun getItems() : List<Item> {
-        return items.toList()
+    fun getItems() : MutableSet<Item> {
+        return items.toMutableSet()
     }
 }
