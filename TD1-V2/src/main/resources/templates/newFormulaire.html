@@ -1,8 +1,9 @@
 {{>header}}
-<h1> Ajouter un item </h1>
+<h1> Ajouter un item a la catégorie {{categorie}} </h1>
 <form method="post" action="/addNew">
     <label for="nom"> Nom de l'item </label>
     <input type="text" name="nom" id="nom">
-    <input type="submit" value="Ajouter un item">
+    <input type="hidden" name="categorie" value="{{categorie}}">
+    <input type="submit" value="Ajouter un item a la catégorie {{categorie}}">
 </form>
 {{>footer}}

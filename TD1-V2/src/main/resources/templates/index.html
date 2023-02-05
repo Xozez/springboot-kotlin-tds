@@ -5,15 +5,32 @@
 {{/msg}}
 
 {{#categories}}
-<div class="ui top attached tabular menu">
-    <div class="item">{{libelle}}</div>
-</div>
-<div class="ui bottom attached active tab segment">
+<table class="ui celled striped table">
+    <thead>
+    <tr><th colspan="5">
+        {{libelle}}
+    </th>
+    </tr></thead>
+    <tbody>
+    <tr>
+        <td class = "center aligned" > Nom </td>
+        <td class = "center aligned" > Evaluation</td>
+        <td class = "center aligned" > Incrémenter </td>
+        <td class = "center aligned" >  Décrémenter  </td>
+        <td class = "center aligned" > Supprimer  </td>
+    </tr>
     {{#items}}
-    <p> {{nom}} {{evaluation}}  <a class="ui green button" href="/inc/{{nom}}"> Incrémenter </a> <a class="ui blue button" href="/dec/{{nom}}"> Décrémenter </a>
-        <a class="ui red button" href="/delete/{{nom}}"> Supprimer </a> </p>
+    <tr>
+        <td class = "center aligned" > {{nom}} </td>
+        <td class = "center aligned" > {{evaluation}}</td>
+        <td class = "center aligned" > <a class="ui green button" href="/inc/{{libelle}}/{{nom}}"> Incrémenter </a></td>
+        <td class = "center aligned" > <a class="ui blue button" href="/dec/{{libelle}}/{{nom}}"> Décrémenter </a> </td>
+        <td class = "center aligned" > <a class="ui red button" href="/delete/{{libelle}}/{{nom}}"> Supprimer </a> </td>
+    </tr>
     {{/items}}
-</div>
-<a class="ui green button" href="/new"> Ajouter un item pour la catégorie {{libelle}}</a>
+    </tbody>
+</table>
+<a class="ui green button" href="/new/{{libelle}}"> Ajouter un item pour la catégorie {{libelle}}</a>
+<br/> <br/>
 {{/categories}}
 {{>footer}}
