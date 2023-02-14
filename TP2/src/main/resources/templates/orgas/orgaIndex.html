@@ -5,6 +5,11 @@
 <ul>
      {{#orgas}}
      <li>  {{name}} </li>
+    <ul>
+          {{#users}}
+            <li> {{lastname}} </li> <li> {{firstname}} </li>
+            {{/users}}
+    </ul>
      {{/orgas}}
 </ul>
 {{> /main/footer}}

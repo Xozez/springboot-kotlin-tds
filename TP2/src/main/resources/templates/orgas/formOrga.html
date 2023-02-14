@@ -1,0 +1,17 @@
+{{> /main/header}}
+<h2> Organisations </h2>
+<form method="post" action="/orgas/new">
+    {{#orga}}
+    {{#id}}
+        <input type="hidden" name="id" value="{{.}}">
+    {{/id}}
+    <input type="text" name="name" value="{{name}}" placeholder="Nom" required class="ui input">
+    <input type="text" name="domain" value="{{domain}}" placeholder="Domaine" required class="ui input">
+    <input type="text" name="aliases" value="{{aliases}}" placeholder="Aliases" required class="ui input">
+    <hr>
+    <textarea placeholder="Insérer des utilisateurs" name="users" value="{{users}}"> </textarea>
+    <hr>
+    <button type="submit" class="ui positive button">Créer une organisation</button>
+    {{/orga}}
+</form>
+{{> /main/footer}}

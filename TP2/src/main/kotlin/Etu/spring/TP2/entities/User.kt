@@ -28,5 +28,5 @@ open class User {
 
     @ManyToMany
     @JoinTable(name = "user_group", joinColumns = [JoinColumn(name = "userId")], inverseJoinColumns = [JoinColumn(name = "groupId")])
-    open val groups : Set<Group>? = HashSet()
+    open val groups : MutableSet<Group>? = HashSet()
 }
