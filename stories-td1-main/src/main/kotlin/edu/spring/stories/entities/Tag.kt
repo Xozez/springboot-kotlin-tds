@@ -1,21 +1,22 @@
 package edu.spring.stories.entities
 
 import jakarta.persistence.*
-
+import java.awt.Color
 
 @Entity
 class Tag {
-    constructor (name: String, color: String){
-        this.label = name
+    constructor (color: String, label: String){
         this.color = color
+        this.label = label
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    open var id: Int? = null
+    open var id: Int = 0;
 
-    @Column(nullable = false, length = 60)
-    open var label: String = ""
+    @Column()
+    open var color: String?;
 
-    @Column(nullable = false, length = 60)
-    open var color: String = ""
+    @Column()
+    open var label: String = "";
 }

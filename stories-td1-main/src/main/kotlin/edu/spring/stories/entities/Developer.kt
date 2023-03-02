@@ -1,6 +1,7 @@
 package edu.spring.stories.entities
 
 import jakarta.persistence.*
+import kotlin.collections.HashSet
 
 @Entity
 class Developer() {
@@ -16,7 +17,7 @@ class Developer() {
     open var firstName: String = ""
 
 
-    @OneToMany(mappedBy = "story",fetch = FetchType.EAGER,cascade = [CascadeType.ALL])
+    @OneToMany(cascade = [CascadeType.PERSIST,CascadeType.MERGE,])
     open val stories : MutableSet<Story> = HashSet()
 
     constructor (lastname: String , firstname: String):this(){
