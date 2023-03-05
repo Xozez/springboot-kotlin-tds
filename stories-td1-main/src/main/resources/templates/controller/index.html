@@ -1,0 +1,19 @@
+{{> main/header}}
+<h1>Développeurs</h1>
+
+<div class="ui form">
+    <form method="POST" action="/developer/add">
+        <div class="two fields">
+            <div class="field">
+                <input type="text" name="firstname" placeholder="First Name">
+            </div>
+            <div class="field">
+                <input type="text" name="lastname" placeholder="Last Name">
+            </div>
+            <button class="ui icon button" type="submit">
+                <i class="plus icon"></i>
+            </button>
+        </div>
+    </form>
+</div>
+{{> main/footer}}
