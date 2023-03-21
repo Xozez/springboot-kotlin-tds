@@ -3,7 +3,7 @@ package edu.spring.btp.entities
 import jakarta.persistence.*
 
 @Entity
-class Complaint() {
+open class Complaint() {
     constructor(title: String, description: String, user: User?, provider: Provider, domain: Domain) : this() {
         this.title = title
         this.description = description

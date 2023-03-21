@@ -132,21 +132,20 @@
                         <artifactId>kotlin-maven-noarg</artifactId>
                         <version>${kotlin.version}</version>
                     </dependency>
-<!--                    <dependency>-->
-<!--                        <groupId>org.springframework.security</groupId>-->
-<!--                        <artifactId>spring-security-web</artifactId>-->
-<!--                    </dependency>-->
-<!---->
-<!--                    <dependency>-->
-<!--                        <groupId>org.springframework.security</groupId>-->
-<!--                        <artifactId>spring-security-test</artifactId>-->
-<!--                        <scope>test</scope>-->
-<!--                    </dependency>-->
+                    <dependency>
+                        <groupId>org.springframework.security</groupId>
+                        <artifactId>spring-security-web</artifactId>
+                    </dependency>
 
-<!--                    <dependency>-->
-<!--                        <groupId>org.springframework.security</groupId>-->
-<!--                        <artifactId>spring-security-config</artifactId>-->
-<!--                    </dependency>*/-->
+                    <dependency>
+                        <groupId>org.springframework.security</groupId>
+                        <artifactId>spring-security-test</artifactId>
+                        <scope>test</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework.security</groupId>
+                        <artifactId>spring-security-config</artifactId>
+                    </dependency>
                 </dependencies>
             </plugin>
         </plugins>
