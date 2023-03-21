@@ -6,6 +6,11 @@
         {{domain-children-size}}
     </span>
 </h2>
+<a href="/" class="ui button">
+  <i class="open door icon"></i>
+  <span class="grey text">Retour</span>
+</a>
+<hr/>
 <div class="ui four cards">
   {{#domain-children}}
   <div class="ui card">
@@ -14,7 +19,7 @@
       <div class="meta"> {{providers.size}} providers </div>
       <div class="description">
         <p> {{description}} </p>
-        <p> <a> <i class="bug icon purple"> </i>  {{getComplainsCount}} plaintes </a>  <span class="ui label"> {{complaints.size}} </span> </p>
+        <p> <a href="/complaints/{{name}}"> <i class="bug icon purple"> </i>  {{getComplainsCount}} plaintes </a>  <span class="ui label"> {{complaints.size}} </span> </p>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @RequestMapping("/")
 @Controller
-class indexController {
+class IndexController {
 
     @Autowired
     lateinit var userRepository: UserRepository
