@@ -19,7 +19,7 @@ interface DomainRepository:JpaRepository<Domain, Int> {
     fun findByParentName(name:String):List<Domain>
 
     @Query(nativeQuery = true,value="SELECT * FROM \"domain\" WHERE \"parent_id\" IS NULL")
-    fun finByParentIsNull():List<Domain>
+    fun findByParentIsNull():List<Domain>
 
     @Query(nativeQuery = true,value="SELECT * FROM \"domain\" WHERE \"parent_id\"=:parentId")
     fun findByParentId(parentId:Int):List<Domain>
