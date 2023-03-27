@@ -1,0 +1,51 @@
+{{> main/header }}
+<a class="ui button two wide column" href="/">
+  <i class="open door icon"></i>
+  Retour
+</a>
+<div class="ui divider"></div>
+
+<div class="ui middle grid">
+  <div class="column">
+    <div class="ui inverted attached segment">
+      <h2 class="ui image header">
+        <div class="content">
+          Déposer une plainte
+        </div>
+      </h2>
+    </div>
+    <form class="ui attached inverted segment large form" method="post" action="/complaints/{{name}}/new">
+      <div class="ui stacked">
+        <div class="field">
+          <label>Domain</label>
+          <div class="ui left icon input">
+            <i class="globe icon"></i>
+            <input type="text" name="domain" value="{{name}}" disabled>
+          </div>
+        </div>
+        <div class="field">
+          <label>Title</label>
+          <div class="ui left icon input">
+            <i class="heading icon"></i>
+            <input type="text" name="title" placeholder="Title">
+          </div>
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <div class="ui left icon input">
+            <i class="comment icon"></i>
+            <input type="text" name="description" placeholder="Description">
+          </div>
+        </div>
+        <button type="submit" class="ui fluid large submit button">Ajouter</button>
+      </div>
+
+      <div class="ui error message"></div>
+    </form>
+
+    <div class="ui inverted message">
+      Pas de compte ? <a href="/signup">y'a plus qu'à...</a>
+    </div>
+  </div>
+</div>
+{{> main/footer }}
