@@ -3,6 +3,8 @@ package edu.spring.btp.controllers
 import edu.spring.btp.entities.*
 import edu.spring.btp.repositories.*
 import edu.spring.btp.security.DbUserService
+import jakarta.servlet.RequestDispatcher
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
@@ -108,5 +110,19 @@ class IndexController {
         userRepository.save(newUser)
 
         return RedirectView("/")
+    }
+    @RequestMapping("/error")
+    fun handleError(request: HttpServletRequest): String {
+        val errorCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE) as Int
+        return if (errorCode == 403) {
+            "main/Erreur403"
+        } else if (errorCode == 404) {
+            "main/Erreur404"
+        } else if (errorCode == 500) {
+            "main/Erreur500"
+        }
+        else {
+            "main/Erreur"
+        }
     }
 }
