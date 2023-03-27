@@ -11,3 +11,26 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
+@Service("userDetailsService")
+class DbUserService:UserDetailsService {
+    @Autowired
+    lateinit var userRepository: UserRepository
+
+    @Autowired
+    lateinit var passwordEncoder: PasswordEncoder
+
+    override fun loadUserByUsername(username: String?): UserDetails {
+        val user= userRepository.findByUsernameOrEmail(username!!) ?: throw UsernameNotFoundException("User not found")
+        return org.springframework.security.core.userdetails.User(user.username,user.password, getGrantedAuthorities(user))
+    }
+
+    private fun getGrantedAuthorities(user: User): List<GrantedAuthority>? {
+        val authorities: MutableList<GrantedAuthority> = ArrayList()
+        authorities.add(SimpleGrantedAuthority(user.role))
+        return authorities
+    }
+
+    fun encodePassword(user: User) {
+        user.password=passwordEncoder.encode(user.password)
+    }
+}
