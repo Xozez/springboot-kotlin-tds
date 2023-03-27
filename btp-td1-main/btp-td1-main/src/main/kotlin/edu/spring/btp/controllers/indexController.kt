@@ -1,7 +1,8 @@
 package edu.spring.btp.controllers
 
-import edu.spring.btp.entities.Complaint
+import edu.spring.btp.entities.*
 import edu.spring.btp.repositories.*
+import edu.spring.btp.security.DbUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
@@ -23,7 +24,7 @@ class IndexController {
     lateinit var complaintRepository: ComplaintRepository
 
     @Autowired
-    lateinit var providerRepository: ProviderRepository
+    lateinit var dbUserService: DbUserService
 
     @RequestMapping(path = ["/", "/index", ""])
     fun index(model: ModelMap): String {
@@ -79,5 +80,33 @@ class IndexController {
         complaintRepository.save(complaint)
 
         return RedirectView("/complaints/$name")
+    }
+
+    @GetMapping("/signup")
+    fun signup(model: ModelMap, auth: Authentication?): String {
+        model["username"] = auth?.name
+        return "Signup"
+    }
+
+    @PostMapping("/signup")
+    fun signup(
+        @RequestParam("username") newUsername: String,
+        @RequestParam("email") newEmail: String,
+        @RequestParam("password") newPassword: String,
+        @RequestParam("confirmPassword") confirmPassword: String
+    ): RedirectView {
+        if (newPassword != confirmPassword) {
+            return RedirectView("/signup?error=Passwords doesn't match")
+        }
+
+        val newUser = User()
+        newUser.username = newUsername
+        newUser.email = newEmail
+        newUser.password = newPassword
+        newUser.role = "USER"
+        (dbUserService).encodePassword(newUser)
+        userRepository.save(newUser)
+
+        return RedirectView("/")
     }
 }
