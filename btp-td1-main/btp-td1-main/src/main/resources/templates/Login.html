@@ -1,0 +1,39 @@
+{{> main/header }}
+<div class="ui middle grid">
+    <div class="column">
+        <div class="ui inverted attached segment">
+            <h2 class="ui image header">
+                <img src="/images/ladybug.png" class="image">
+                <div class="content">
+                    Connexion - BTP
+                </div>
+            </h2>
+        </div>
+        <form class="ui attached inverted segment large form" method="post" action="./login">
+            <div class="ui stacked">
+                <div class="field">
+                    <label>Adresse e-mail</label>
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="username" placeholder="E-mail address">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Mot de passe</label>
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <button type="submit" class="ui fluid large submit button">Se connecter</button>
+            </div>
+
+            <div class="ui error message"></div>
+        </form>
+
+        <div class="ui inverted message">
+            Pas de compte ? <a href="/signup">y'a plus qu'à...</a>
+        </div>
+    </div>
+</div>
+{{> main/footer }}

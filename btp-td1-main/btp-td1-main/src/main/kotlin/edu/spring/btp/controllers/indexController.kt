@@ -55,7 +55,7 @@ class IndexController {
     fun newComplaint(model: ModelMap, auth: Authentication, @PathVariable(name = "name") name: String): String {
         model["username"] = auth.name
         model["domainName"] = name
-        return "newComplaint"
+        return "NewComplaint"
     }
 
     @PostMapping("/complaints/{name}/new")

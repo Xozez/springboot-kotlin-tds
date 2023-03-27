@@ -10,5 +10,12 @@
 <div id="app" class="ui container">
     <div class="ui inverted menu">
         <a href="/" class="header item">Balance ton pro...</a>
+        {{#username}}
+        <a href="/logout" class="header item">{{username}} - Déconnexion</a>
+        {{/username}}
+        {{^username}}
+        <a href="/login" class="header item">Se connecter</a>
+        <a href="/signup" class="header item">Créer un compte</a>
+        {{/username}}
         <div class="item right floated">Version : <span class="ui inverted label">2.0.0</span></div>
     </div>
